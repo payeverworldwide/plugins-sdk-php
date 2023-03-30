@@ -16,11 +16,11 @@
          "lib"
       ]
    },
-   "description" : "PHP SDK for payever plugins",
+   "description" : "PHP SDK for payever",
    "homepage" : "https://github.com/payeverworldwide/plugins-sdk-php",
    "keywords" : [
-      "plugins",
       "payever",
+      "plugins",
       "e-commerce"
    ],
    "license" : "MIT",
