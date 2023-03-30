@@ -25,6 +25,7 @@
    ],
    "license" : "MIT",
    "minimum-stability" : "stable",
+   "name" : "payever/plugins-sdk-php",
    "require" : {
       "ext-curl" : "*",
       "ext-json" : "*",
