@@ -6,6 +6,7 @@
  * @category  Http
  * @package   Payever\Core
  * @author    payever GmbH <service@payever.de>
+ * @author    Igor.Siaryi <igor.siary@gmail.com>
  * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
  * @link      https://docs.payever.org/shopsystems/api/getting-started
@@ -29,8 +30,8 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method array                            getCountries()
  * @method array                            getCurrencies()
  * @method self                             setCode(string $code)
- * @method self                             setNameEn(string $name)
- * @method self                             setNameDe(string $name)
+ * @method self                             setNameEn(string $nameEn)
+ * @method self                             setNameDe(string $nameDe)
  * @method self                             setShortDescriptionEn(string $shortDescriptionEn)
  * @method self                             setShortDescriptionDe(string $shortDescriptionDe)
  * @method self                             setDescriptionEn(string $descriptionEn)
@@ -46,10 +47,10 @@ class WhiteLabelPluginResponseEntity extends ResponseEntity
     protected $code;
 
     /** @var string $name_en */
-    protected $name_en;
+    protected $nameEn;
 
     /** @var string $name_de */
-    protected $name_de;
+    protected $nameDe;
 
     /** @var string $shortDescriptionEn */
     protected $shortDescriptionEn;
