@@ -14,17 +14,23 @@
 
 namespace Payever\Sdk\Plugins;
 
+use Payever\Sdk\Core\Base\HttpClientInterface;
 use Payever\Sdk\Core\Http\Client\CurlClient;
 use Payever\Sdk\Core\Http\RequestBuilder;
-use Payever\Sdk\Core\Logger\NullLogger;
 use Payever\Sdk\Plugins\Base\WhiteLabelPluginsApiClientInterface;
 use Payever\Sdk\Plugins\Http\ResponseEntity\WhiteLabelPluginResponseEntity;
+use Psr\Log\NullLogger;
 
 /**
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class WhiteLabelPluginsApiClient implements WhiteLabelPluginsApiClientInterface
 {
+    /**
+     * @var HttpClientInterface|null
+     */
+    private $httpClient;
+
     const URL_LIVE = 'https://plugins-third-party.payever.org/';
     const SUB_URL_WL_PLUGIN = 'api/wl/plugin/%s/shopsystem/%s';
 
@@ -64,6 +70,10 @@ class WhiteLabelPluginsApiClient implements WhiteLabelPluginsApiClientInterface
      */
     private function buildWhiteLabelPluginUrl($code, $shopsystem)
     {
-        return sprintf('%s%s', static::URL_LIVE, sprintf(static::SUB_URL_WL_PLUGIN, $code, $shopsystem));
+        return sprintf(
+            '%s%s',
+            static::URL_LIVE,
+            sprintf(static::SUB_URL_WL_PLUGIN, $code, $shopsystem)
+        );
     }
 }

@@ -29,6 +29,10 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method array                            getSupportedMethods()
  * @method array                            getCountries()
  * @method array                            getCurrencies()
+ * @method string                           getCompanyEmail()
+ * @method string                           getCompanyName()
+ * @method string                           getCompanyUrl()
+ * @method array|null                       getImages()
  * @method self                             setCode(string $code)
  * @method self                             setNameEn(string $nameEn)
  * @method self                             setNameDe(string $nameDe)
@@ -39,6 +43,10 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method self                             setSupportedMethods(array $supportedMethods)
  * @method self                             setCountries(array $countries)
  * @method self                             setCurrencies(array $currencies)
+ * @method self                             setCompanyEmail(string $email)
+ * @method self                             setCompanyName(string $name)
+ * @method self                             setCompanyUrl(string $url)
+ * @method self                             setImages(array $images)
  *
  */
 class WhiteLabelPluginResponseEntity extends ResponseEntity
@@ -72,4 +80,24 @@ class WhiteLabelPluginResponseEntity extends ResponseEntity
 
     /** @var array $currencies */
     protected $currencies = [];
+
+    /**
+     * @var string
+     */
+    protected $companyEmail;
+
+    /**
+     * @var string
+     */
+    protected $companyName;
+
+    /**
+     * @var string
+     */
+    protected $companyUrl;
+
+    /**
+     * @var array
+     */
+    protected $images = [];
 }
