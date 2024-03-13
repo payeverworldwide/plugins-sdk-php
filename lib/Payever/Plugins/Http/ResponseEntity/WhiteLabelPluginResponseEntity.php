@@ -33,6 +33,7 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method string                           getCompanyName()
  * @method string                           getCompanyUrl()
  * @method array|null                       getImages()
+ * @method bool                             getAllowIframe()
  * @method self                             setCode(string $code)
  * @method self                             setNameEn(string $nameEn)
  * @method self                             setNameDe(string $nameDe)
@@ -47,6 +48,7 @@ use Payever\Sdk\Core\Http\ResponseEntity;
  * @method self                             setCompanyName(string $name)
  * @method self                             setCompanyUrl(string $url)
  * @method self                             setImages(array $images)
+ * @method self                             setAllowIframe(bool $allowIframe)
  *
  */
 class WhiteLabelPluginResponseEntity extends ResponseEntity
@@ -100,4 +102,9 @@ class WhiteLabelPluginResponseEntity extends ResponseEntity
      * @var array
      */
     protected $images = [];
+
+    /**
+     * @var bool
+     */
+    protected $allowIframe;
 }
