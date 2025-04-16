@@ -1,15 +1,14 @@
 <?php
 
 /**
- * PHP version 5.4 and 8.1
+ * PHP version 5.6 and 8
  *
  * @category  Command
  * @package   Payever\Plugins
  * @author    payever GmbH <service@payever.de>
- * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
- * @copyright 2017-2023 payever GmbH
+ * @copyright 2017-2025 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
- * @link      https://docs.payever.org/shopsystems/api/getting-started
+ * @link      https://docs.payever.org/api/payments/v3/getting-started-v3
  */
 
 namespace Payever\Sdk\Plugins\Command;
@@ -17,6 +16,8 @@ namespace Payever\Sdk\Plugins\Command;
 use Payever\Sdk\Plugins\Http\MessageEntity\PluginCommandEntity;
 
 /**
+ * This class represents AbstractPluginCommandExecutor
+ *
  * @SuppressWarnings(PHPMD.MissingImport)
  */
 abstract class AbstractPluginCommandExecutor implements PluginCommandExecutorInterface
@@ -35,7 +36,7 @@ abstract class AbstractPluginCommandExecutor implements PluginCommandExecutorInt
 
     /**
      * @param PluginCommandEntity $commandEntity
-     * @param string $sentenceDelimiter
+     * @param string              $sentenceDelimiter
      *
      * @return string - Message to show admin (with clickable HTML links)
      */

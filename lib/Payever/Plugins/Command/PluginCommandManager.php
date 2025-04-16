@@ -1,15 +1,14 @@
 <?php
 
 /**
- * PHP version 5.4 and 8.1
+ * PHP version 5.6 and 8
  *
  * @category  Command
  * @package   Payever\Plugins
  * @author    payever GmbH <service@payever.de>
- * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
- * @copyright 2017-2023 payever GmbH
+ * @copyright 2017-2025 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
- * @link      https://docs.payever.org/shopsystems/api/getting-started
+ * @link      https://docs.payever.org/api/payments/v3/getting-started-v3
  */
 
 namespace Payever\Sdk\Plugins\Command;
@@ -17,24 +16,27 @@ namespace Payever\Sdk\Plugins\Command;
 use Payever\Sdk\Plugins\Base\PluginsApiClientInterface;
 use Payever\Sdk\Plugins\Enum\PluginCommandNameEnum;
 use Payever\Sdk\Plugins\Http\MessageEntity\PluginCommandEntity;
-use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponseEntity;
+use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponse;
 use Psr\Log\LoggerInterface;
 
+/**
+ * This class represents PluginCommandManager
+ */
 class PluginCommandManager
 {
-    /** @var PluginsApiClientInterface */
+    /** @var PluginsApiClientInterface $pluginsApiClient */
     private $pluginsApiClient;
 
-    /** @var PluginCommandExecutorInterface */
+    /** @var PluginCommandExecutorInterface $commandExecutor */
     private $commandExecutor;
 
-    /** @var LoggerInterface */
+    /** @var LoggerInterface $logger */
     private $logger;
 
     /**
-     * @param PluginsApiClientInterface $pluginsApiClient
+     * @param PluginsApiClientInterface      $pluginsApiClient
      * @param PluginCommandExecutorInterface $commandExecutor
-     * @param LoggerInterface $logger
+     * @param LoggerInterface                $logger
      */
     public function __construct(
         PluginsApiClientInterface $pluginsApiClient,
@@ -52,12 +54,13 @@ class PluginCommandManager
      * @param int|null $lastCommandTimestamp
      *
      * @throws \Exception - bubbles up anything thrown by API or CommandExecutor
+     *
      * @SuppressWarnings(PHPMD.ElseExpression)
      */
     public function executePluginCommands($lastCommandTimestamp = null)
     {
         $commandsResponse = $this->pluginsApiClient->getCommands($lastCommandTimestamp);
-        /** @var CommandsResponseEntity $responseEntity */
+        /** @var CommandsResponse $responseEntity */
         $responseEntity = $commandsResponse->getResponseEntity();
         $commandsList = $responseEntity->getCommands();
 

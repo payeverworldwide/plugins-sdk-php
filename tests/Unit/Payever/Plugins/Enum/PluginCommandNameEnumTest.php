@@ -2,8 +2,8 @@
 
 namespace Payever\Tests\Unit\Payever\Plugins\Enum;
 
-use Payever\Sdk\Plugins\Enum\PluginCommandNameEnum;
 use PHPUnit\Framework\TestCase;
+use Payever\Sdk\Plugins\Enum\PluginCommandNameEnum;
 
 class PluginCommandNameEnumTest extends TestCase
 {
