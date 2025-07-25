@@ -1,14 +1,15 @@
 <?php
 
 /**
- * PHP version 5.6 and 8
+ * PHP version 5.4 and 8.1
  *
  * @category  Plugins
  * @package   Payever\Plugins
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2025 payever GmbH
+ * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
- * @link      https://docs.payever.org/api/payments/v3/getting-started-v3
+ * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
 
 namespace Payever\Sdk\Plugins;
@@ -17,21 +18,18 @@ use Payever\Sdk\Core\Authorization\OauthTokenList;
 use Payever\Sdk\Core\Base\ClientConfigurationInterface;
 use Payever\Sdk\Core\Base\HttpClientInterface;
 use Payever\Sdk\Core\CommonApiClient;
-use Payever\Sdk\Core\Http\MessageEntity\RequestEntity;
-use Payever\Sdk\Core\Http\MessageEntity\ResponseEntity;
 use Payever\Sdk\Core\Http\RequestBuilder;
+use Payever\Sdk\Core\Http\RequestEntity;
 use Payever\Sdk\Core\Http\Response;
+use Payever\Sdk\Core\Http\ResponseEntity;
 use Payever\Sdk\Plugins\Base\PluginRegistryInfoProviderInterface;
 use Payever\Sdk\Plugins\Base\PluginsApiClientInterface;
-use Payever\Sdk\Plugins\Http\RequestEntity\PluginRegistryRequest;
-use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponse;
-use Payever\Sdk\Plugins\Http\ResponseEntity\PluginRegistryResponse;
-use Payever\Sdk\Plugins\Http\ResponseEntity\PluginVersionResponse;
+use Payever\Sdk\Plugins\Http\RequestEntity\PluginRegistryRequestEntity;
+use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponseEntity;
+use Payever\Sdk\Plugins\Http\ResponseEntity\PluginRegistryResponseEntity;
+use Payever\Sdk\Plugins\Http\ResponseEntity\PluginVersionResponseEntity;
 
 /**
- * This class represents payever Plugins API Connector
- * PluginsApiClient manages plugin registration, commands, and version retrieval via API.
- *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterface
@@ -42,22 +40,21 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
     const SUB_URL_GET_COMMANDS = 'api/plugin/command/list';
     const SUB_URL_GET_LATEST_VERSION = 'api/plugin/channel/%s/latest?cmsVersion=%s';
 
-    /** @var PluginRegistryInfoProviderInterface $registryInfoProvider */
+    /** @var PluginRegistryInfoProviderInterface */
     private $registryInfoProvider;
 
     /**
      * @param PluginRegistryInfoProviderInterface $registryInfoProvider
-     * @param ClientConfigurationInterface        $clientConfiguration
-     * @param OauthTokenList|null                 $oauthTokenList
-     * @param HttpClientInterface|null            $httpClient
-     *
+     * @param ClientConfigurationInterface $clientConfiguration
+     * @param OauthTokenList|null $oauthTokenList
+     * @param HttpClientInterface|null $httpClient
      * @throws \Exception
      */
     public function __construct(
         PluginRegistryInfoProviderInterface $registryInfoProvider,
         ClientConfigurationInterface $clientConfiguration,
-        OauthTokenList $oauthTokenList = null,
-        HttpClientInterface $httpClient = null
+        $oauthTokenList = null,
+        $httpClient = null
     ) {
         parent::__construct($clientConfiguration, $oauthTokenList, $httpClient);
 
@@ -84,7 +81,7 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
         return $this->doPublicJsonPostRequest(
             $url,
             $this->buildRegistryRequestEntity(true),
-            new PluginRegistryResponse()
+            new PluginRegistryResponseEntity()
         );
     }
 
@@ -100,7 +97,7 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
         return $this->doPublicJsonPostRequest(
             $url,
             $this->buildRegistryRequestEntity(),
-            new PluginRegistryResponse()
+            new PluginRegistryResponseEntity()
         );
     }
 
@@ -114,7 +111,7 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
         return $this->doPublicJsonPostRequest(
             $this->buildAcknowledgePluginCommandUrl($commandId),
             $this->buildRegistryRequestEntity(),
-            new PluginRegistryResponse()
+            new PluginRegistryResponseEntity()
         );
     }
 
@@ -126,14 +123,14 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
     public function getCommands($fromTimestamp = null)
     {
         $request = RequestBuilder::get($this->buildGetCommandsUrl($fromTimestamp))
-            ->setResponseEntity(new CommandsResponse())
+            ->setResponseEntity(new CommandsResponseEntity())
             ->build();
 
         return $this->getHttpClient()->execute($request);
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * @throws \Exception
      */
@@ -149,7 +146,7 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
         $url = sprintf('%s%s', $this->getLiveBaseUrl(), $path);
 
         $request = RequestBuilder::get($url)
-            ->setResponseEntity(new PluginVersionResponse())
+            ->setResponseEntity(new PluginVersionResponseEntity())
             ->build();
 
         return $this->getHttpClient()->execute($request);
@@ -158,13 +155,12 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
     /**
      * @param bool $extended whether we should build entity for Register request
      *
-     * @return PluginRegistryRequest
-     *
+     * @return PluginRegistryRequestEntity
      * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
      */
     private function buildRegistryRequestEntity($extended = false)
     {
-        $requestEntity = new PluginRegistryRequest();
+        $requestEntity = new PluginRegistryRequestEntity();
         $requestEntity
             ->setChannel($this->registryInfoProvider->getChannel())
             ->setHost($this->registryInfoProvider->getHost())
@@ -184,10 +180,9 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
     }
 
     /**
-     * @param string         $url
-     * @param RequestEntity  $requestEntity
+     * @param string $url
+     * @param RequestEntity $requestEntity
      * @param ResponseEntity $responseEntity
-     *
      * @return Response
      *
      * @throws \Exception
@@ -205,7 +200,6 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
 
     /**
      * @param string $commandId
-     *
      * @return string
      */
     private function buildAcknowledgePluginCommandUrl($commandId)
@@ -215,7 +209,6 @@ class PluginsApiClient extends CommonApiClient implements PluginsApiClientInterf
 
     /**
      * @param int|null $fromTimestamp
-     *
      * @return string
      */
     private function buildGetCommandsUrl($fromTimestamp = null)

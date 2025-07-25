@@ -1,14 +1,15 @@
 <?php
 
 /**
- * PHP version 5.6 and 8
+ * PHP version 5.4 and 8.1
  *
  * @category  MessageEntity
  * @package   Payever\Plugins
  * @author    payever GmbH <service@payever.de>
- * @copyright 2017-2025 payever GmbH
+ * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
+ * @copyright 2017-2023 payever GmbH
  * @license   MIT <https://opensource.org/licenses/MIT>
- * @link      https://docs.payever.org/api/payments/v3/getting-started-v3
+ * @link      https://docs.payever.org/shopsystems/api/getting-started
  */
 
 namespace Payever\Sdk\Plugins\Http\MessageEntity;
@@ -17,44 +18,43 @@ use Payever\Sdk\Core\Base\MessageEntity;
 use Payever\Sdk\Plugins\Enum\PluginCommandNameEnum;
 
 /**
- * This class represents PluginCommandEntity
- *
- * @method string      getId()
- * @method string      getName()
- * @method string      getValue()
+ * @method string getId()
+ * @method string getName()
+ * @method string getValue()
  * @method string|null getChannelType()
  * @method string|null getMinCmsVersion()
  * @method string|null getMaxCmsVersion()
- * @method array       getMetadata()
+ * @method array getMetadata()
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class PluginCommandEntity extends MessageEntity
 {
-    /** @var string $id */
+    /** @var string */
     protected $id;
 
     /**
-     * @var string $name - {@see PluginCommandNameEnum}
+     * @var string
+     * @see PluginCommandNameEnum
      */
     protected $name;
 
-    /** @var string $value */
+    /** @var string */
     protected $value;
 
-    /** @var string $channelType */
+    /** @var string */
     protected $channelType;
 
-    /** @var string $minCmsVersion */
+    /** @var string */
     protected $minCmsVersion;
 
-    /** @var string $maxCmsVersion */
+    /** @var string */
     protected $maxCmsVersion;
 
     /**
      * Additional data with specific for each command fields
      *
-     * @var array $metadata
+     * @var array
      */
     protected $metadata = [];
 

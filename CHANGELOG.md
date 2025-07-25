@@ -1,5 +1,9 @@
 # Changelog
 
+## [2.0.1]
+### Changed
+- Changed definitions of `PluginsApiClient` constructor
+
 ## [2.0.0]
 ### Changed
 - Removed `psr/log` dependency

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="tests/Bootstrap/bootstrap.php" verbose="false">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/6.5/phpunit.xsd"
+         verbose="false">
     <testsuites>
         <testsuite name="Integration">
             <directory phpVersion="5.4.0">tests/Integration/Payever</directory>
@@ -12,6 +14,9 @@
         <const name="STUB_SERVER_HOST" value="127.0.0.1" />
         <const name="STUB_SERVER_PORT" value="9095" />
     </php>
+    <listeners>
+        <listener class="Payever\Tests\Bootstrap\StubServerListener" />
+    </listeners>
     <filter>
         <whitelist>
             <directory suffix=".php">lib</directory>

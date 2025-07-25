@@ -1,4 +1,12 @@
 <?php
+/**
+ * PHP version 5.4 and 7
+ *
+ * @package   Payever\@PACKAGE
+ * @author    Hennadii.Shymanskyi <gendosua@gmail.com>
+ * @copyright 2017-2019 payever GmbH
+ * @license   MIT <https://opensource.org/licenses/MIT>
+ */
 
 namespace Payever\Tests\Unit\Payever\Plugins\Command;
 
@@ -7,11 +15,11 @@ use Payever\Sdk\Plugins\Base\PluginRegistryInfoProviderInterface;
 use Payever\Sdk\Plugins\Command\PluginCommandExecutorInterface;
 use Payever\Sdk\Plugins\Command\PluginCommandManager;
 use Payever\Sdk\Plugins\Enum\PluginCommandNameEnum;
-use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponse;
+use Payever\Sdk\Plugins\Http\ResponseEntity\CommandsResponseEntity;
 use Payever\Sdk\Plugins\PluginsApiClient;
-use Payever\Tests\Integration\features\bootstrap\PluginRegistryIntoProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use Payever\Tests\Bootstrap\Plugins\PluginRegistryIntoProvider;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\NullLogger;
 
 class PluginCommandManagerTest extends TestCase
@@ -54,7 +62,7 @@ class PluginCommandManagerTest extends TestCase
      */
     public function testExecutePluginCommands($commands, $shouldExecute)
     {
-        $commandsResponseEntity = new CommandsResponse($commands);
+        $commandsResponseEntity = new CommandsResponseEntity($commands);
         $response = new Response();
         $response->setResponseEntity($commandsResponseEntity);
 
